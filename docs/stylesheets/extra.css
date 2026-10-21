@@ -1,0 +1,52 @@
+.md-grid {
+  max-width: 88rem;
+}
+
+.md-header__button.md-logo {
+  display: none;
+}
+
+.md-typeset {
+  font-size: 0.76rem;
+  line-height: 1.7;
+}
+
+.md-typeset h1 {
+  font-weight: 650;
+  letter-spacing: -0.035em;
+}
+
+.md-typeset h2 {
+  margin-top: 2.25em;
+  font-weight: 620;
+  letter-spacing: -0.02em;
+}
+
+.md-typeset .grid.cards > ul > li {
+  border-radius: 0.35rem;
+  transition:
+    border-color 150ms ease,
+    box-shadow 150ms ease,
+    transform 150ms ease;
+}
+
+.md-typeset .grid.cards > ul > li:hover {
+  border-color: var(--md-accent-fg-color);
+  box-shadow: var(--md-shadow-z2);
+  transform: translateY(-2px);
+}
+
+.card-icon {
+  color: var(--md-accent-fg-color);
+  font-size: 1.25rem;
+  margin-right: 0.35rem;
+  vertical-align: -0.15em;
+}
+
+.md-typeset .md-button {
+  border-radius: 0.25rem;
+}
+
+.md-typeset pre > code {
+  font-size: 0.72rem;
+}
