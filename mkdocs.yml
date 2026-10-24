@@ -1,5 +1,5 @@
-site_name: Kartezio
-site_description: Documentation for single-objective image-processing pipelines with Kartezio.
+site_name: Evolutionary Generation of Illumination-Robust Classical Image-Processing Pipelines for Image Segmentation
+site_description: Project documentation for evolutionary generation of illumination-robust classical image-processing pipelines for image segmentation.
 
 theme:
   name: material
@@ -32,17 +32,17 @@ extra_css:
   - stylesheets/extra.css
 
 nav:
-  - Home: index.md
-  - Getting Started:
-      - Installation: installation.md
-      - Quick Start: quickstart.md
-  - User Guide:
-      - Core Concepts: concepts.md
-      - Data: data.md
-      - Training, Evaluation & Export: training.md
-  - Reference:
-      - Components: components.md
-      - Primitive Library: primitives.md
+  - Project:
+      - Overview: index.md
+      - Research Background: concepts.md
+      - Scope and Research Questions: quickstart.md
+      - Team: components.md
+  - Research Design:
+      - Benchmark and Data: data.md
+      - Methodology: training.md
+      - Evaluation Plan: primitives.md
+  - Website:
+      - Preview and Publish: installation.md
 
 markdown_extensions:
   - admonition

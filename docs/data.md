@@ -1,65 +1,26 @@
 ---
-title: Data
-description: Prepare image batches or read datasets using Kartezio's data helpers.
+title: Benchmark and Data Protocol
+description: Benchmark context and the proposed separation of optimization and evaluation conditions.
 ---
 
-# Data
+# Benchmark and Data Protocol
 
-The trainer accepts `x` and `y` batches. The project type aliases define a batch as a list of items, where each item is itself a list of NumPy arrays. For a single-channel image task, an item contains one image array.
+## Benchmark
 
-## In-memory batches
+The project uses the benchmark by Khan, Mikut, and Reischl, described in the literature survey. It was designed to study illumination robustness in object segmentation and classification. The survey reports nine object classes, ground-truth annotations, and controlled variations in shading and background noise.
 
-The built-in helper `one_cell_dataset()` returns a one-image training batch and its target annotation:
+The benchmark enables comparisons between performance on less-degraded images and performance under altered imaging conditions. Results should be interpreted within the benchmark's images and tested variations.
 
-```python
-from kartezio.utils.dataset import one_cell_dataset
+## Optimization and held-out conditions
 
-train_x, train_y = one_cell_dataset()
+To assess generalization, distinguish images or imaging conditions used to optimize candidate pipelines from conditions reserved for evaluation. The held-out set must not guide pipeline selection or parameter tuning. Where possible, hold out conditions (such as shading or noise levels), not just individual images with otherwise familiar conditions.
 
-# One item per batch; one image array in each item.
-image = train_x[0][0]
-target = train_y[0][0]
-```
+The final report should state how the data were divided, which conditions were used in each split, and whether any selection decisions were made after viewing held-out results. The exact split and noise/shading settings are experimental choices and should be documented once finalized.
 
-The helper uses `skimage.data.cell()` for the image and creates an annotation by drawing a filled circle into a zero-initialized array. It is a small example dataset, not a general annotation loader.
+## Ground truth
 
-For your own arrays, preserve the same nested batch structure:
+Use the benchmark's segmentation annotations as reference masks when calculating segmentation-quality metrics. Ensure every method is evaluated against the same annotations and on the same evaluation images.
 
-```python
-x = [[image_0], [image_1]]
-y = [[mask_0], [mask_1]]
+## Data availability and reproducibility
 
-elite, history = trainer.fit(100, x, y)
-```
-
-Each item in `x` and `y` is a list of arrays. The examples use one array in each item for single-channel images and target masks.
-
-## Reading a dataset from files
-
-`kartezio.data.dataset.read_dataset` reads a CSV-backed dataset:
-
-```python
-from kartezio.data.dataset import read_dataset
-
-dataset = read_dataset(
-    dataset_path="path/to/dataset",
-    x_reader="grayscale",
-    y_reader="labels",
-)
-
-train_x, train_y = dataset.train_xy
-test_x, test_y = dataset.test_xy
-```
-
-The CSV defaults to `dataset.csv`. The reader splits rows using the `set` column with values `training` and `test`, and reads input and label paths from the `input` and `label` columns.
-
-Supported reader names in the implementation include:
-
-| Argument | Accepted string values |
-| --- | --- |
-| `x_reader` | `"rgb"`, `"grayscale"`, `"tiff_mono_3d"`, `"tiff_labels_3d"` |
-| `y_reader` | `"labels"`, `"imagej"`, `"tiff_labels_3d"`, `"polyhedron"` |
-
-The function also accepts reader instances derived from `DataReader`. A file-based dataset must contain the columns required by its selected readers; `visual` is an optional column used for previews.
-
-Set `preview=True` in `read_dataset` to request preview images for the loaded split. The implementation writes these into a `__preview__` directory associated with the dataset directory.
+Record the benchmark version or source, selected classes and conditions, preprocessing steps, and any exclusions. Do not infer robustness to conditions that are not represented in the evaluation data.

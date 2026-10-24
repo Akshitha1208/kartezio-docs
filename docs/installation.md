@@ -1,48 +1,42 @@
 ---
-title: Installation
-description: Install Kartezio from its source checkout and run this documentation site.
+title: Preview and Publish This Site
+description: Run the project documentation locally and publish updates with GitHub Pages.
 ---
 
-# Installation
+# Preview and Publish This Site
 
-Kartezio requires Python 3.11 or newer, as declared in the project's `pyproject.toml`.
+This repository contains the project's documentation website. It does not contain the image-processing experiment code or provide commands to run the segmentation experiments.
 
-## Install Kartezio
+## Preview locally
 
-From the root of the Kartezio source checkout, install the package in editable mode:
-
-```powershell
-python -m pip install -e .
-```
-
-The project metadata declares the runtime dependencies, which pip installs with the package. The development dependency group contains `pytest` and `coverage`.
-
-To install that group with `uv`, run this from the project root:
+Install the documentation dependencies:
 
 ```powershell
-uv sync --group dev
+python -m pip install mkdocs-material
 ```
 
-## Install the documentation tools
-
-From this documentation folder, install MkDocs, its Material theme, and the Markdown extensions used by the site:
-
-```powershell
-python -m pip install mkdocs mkdocs-material pymdown-extensions
-```
-
-## Preview or build the site
-
-Run these commands from this documentation folder:
+From the repository root, start the local preview:
 
 ```powershell
 mkdocs serve
 ```
 
-MkDocs serves the site locally and rebuilds it when documentation files change. To create the static site:
+Open `http://127.0.0.1:8000` in a browser. Stop the preview with `Ctrl+C`. To check that the site builds:
 
 ```powershell
 mkdocs build --strict
 ```
 
-The generated site is written to `site/` inside this documentation folder.
+## Publish updates
+
+The GitHub Actions workflow builds and deploys the site when changes are pushed to `main`. In the GitHub repository, configure **Settings → Pages → Build and deployment → Source** as **GitHub Actions**.
+
+Edit the Markdown pages in `docs/`, then commit and push the changes:
+
+```powershell
+git add docs
+git commit -m "Update project documentation"
+git push origin main
+```
+
+Check the **Actions** tab for the build and deployment status. Once the workflow succeeds, GitHub Pages serves the updated documentation at the repository's Pages URL.
