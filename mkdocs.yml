@@ -36,6 +36,7 @@ nav:
       - Overview: index.md
       - Research Background: concepts.md
       - Scope and Research Questions: quickstart.md
+      - Implementation Details: implementation.md
       - Team: components.md
   - Research Design:
       - Benchmark and Data: data.md

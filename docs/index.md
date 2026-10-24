@@ -5,7 +5,7 @@ description: Project documentation for evolving illumination-robust classical im
 
 # Evolutionary Generation of Illumination-Robust Classical Image-Processing Pipelines for Image Segmentation
 
-This project investigates whether evolutionary computation can automatically assemble classical image-processing operations into segmentation pipelines that remain useful when illumination and background noise vary.
+This project investigates whether Kartezio can automatically assemble classical image-processing operations into segmentation pipelines that remain useful when illumination and background noise vary. The implementation and experiments are maintained in the [project code repository](https://github.com/Pranathi-N-47/kartezio-illumination-robustness).
 
 ## Problem
 
@@ -22,13 +22,15 @@ To generate classical image-processing pipelines using Cartesian Genetic Program
 - Examine performance on conditions held out from optimization.
 - Compare evolved pipelines with conventional image-processing approaches.
 
-## Approach at a glance
+## Implementation status
 
-Candidate pipelines are represented as computational graphs. Evolution uses segmentation performance to select and improve candidates. The resulting pipelines are assessed against ground-truth masks using overlap metrics and compared across image conditions.
+The repository implements benchmark and annotation validation, preprocessing, segmentation and robustness metrics, Python/MATLAB-compatible Otsu and Sobel baselines, and synthetic fixtures for a CGP pilot. The pilot demonstrates the evolution workflow on generated images; it is not evidence of performance on the hardware-items benchmark.
+
+The scene-held-out split logic is implemented and audited. Benchmark-scale evolutionary runs, repeated-seed comparisons, and final analysis of evolved pipelines are still planned. See [Implementation Details](implementation.md) for code locations, commands, current status, and limitations.
 
 ## Project scope
 
-The work focuses on classical image-processing operations, CGP-based pipeline generation, segmentation, and empirical evaluation under varying imaging conditions. It evaluates an established evolutionary approach rather than proposing a new evolutionary algorithm. See the [methodology](training.md) and [evaluation plan](primitives.md) for details.
+The work focuses on classical image-processing operations, CGP-based pipeline generation, segmentation, and empirical evaluation under varying imaging conditions. It evaluates an established evolutionary approach rather than proposing a new evolutionary algorithm. See the [methodology](training.md), [benchmark and data protocol](data.md), and [evaluation plan](primitives.md) for details.
 
 ## Team
 
@@ -37,4 +39,4 @@ The work focuses on classical image-processing operations, CGP-based pipeline ge
 - Bhuvaneshwari D
 - Pranathi Nibhanipudi
 
-Explore the [research background](concepts.md), [project scope and questions](quickstart.md), and [benchmark and data protocol](data.md).
+Explore the [research background](concepts.md), [project scope and questions](quickstart.md), and [implementation details](implementation.md).
